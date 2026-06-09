@@ -62,7 +62,7 @@ function base64UrlToBytes(value) {
   }
 
   const base64 = text.replace(/-/g, '+').replace(/_/g, '/').padEnd(Math.ceil(text.length / 4) * 4, '=')
-  let binary = ''
+  let binary
 
   try {
     binary = window.atob(base64)
@@ -147,7 +147,7 @@ function parseToken(token) {
     )
   }
 
-  let parsed = null
+  let parsed
   try {
     parsed = JSON.parse(base64UrlToText(token))
   } catch (error) {
@@ -274,12 +274,40 @@ function setStatusChip(state, text) {
 function setResult(state, kicker, title, message) {
   elements.result.dataset.state = state
   elements.result.innerHTML = `
-    <div class="status-mark" aria-hidden="true"></div>
+    <div class="status-mark" aria-hidden="true">${statusIconSvg(state)}</div>
     <div class="result-copy">
       <p class="result-kicker">${escapeHtml(kicker)}</p>
-      <h2>${escapeHtml(title)}</h2>
+      <h1 id="page-title">${escapeHtml(title)}</h1>
       <p>${escapeHtml(message)}</p>
     </div>
+  `
+}
+
+function statusIconSvg(state) {
+  if (state === 'success') {
+    return `
+      <svg class="status-icon" viewBox="0 0 48 48" focusable="false">
+        <circle class="status-ring" cx="24" cy="24" r="21" />
+        <path class="status-check" d="M14.5 24.5 21 31l13-15" />
+      </svg>
+    `
+  }
+
+  if (state === 'error' || state === 'warning') {
+    return `
+      <svg class="status-icon" viewBox="0 0 48 48" focusable="false">
+        <circle class="status-ring" cx="24" cy="24" r="21" />
+        <path class="status-x" d="M17 17 31 31" />
+        <path class="status-x" d="M31 17 17 31" />
+      </svg>
+    `
+  }
+
+  return `
+    <svg class="status-icon" viewBox="0 0 48 48" focusable="false">
+      <circle class="status-ring" cx="24" cy="24" r="21" />
+      <circle class="status-dot" cx="24" cy="24" r="5" />
+    </svg>
   `
 }
 
@@ -306,8 +334,8 @@ function renderDetails(payload) {
 
   elements.detailsGrid.innerHTML = fields
     .map(
-      (field) => `
-        <div class="detail-row">
+      (field, index) => `
+        <div class="detail-row" style="--row-delay: ${index * 55}ms">
           <span class="detail-label">${escapeHtml(FIELD_LABELS[field] || field)}</span>
           <span class="detail-value">${escapeHtml(displayValue(field, payload[field]))}</span>
         </div>
