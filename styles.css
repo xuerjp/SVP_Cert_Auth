@@ -48,15 +48,6 @@ body {
   box-shadow: 0 22px 55px rgba(8, 36, 61, 0.12);
 }
 
-.eyebrow {
-  margin: 0 0 6px;
-  color: var(--accent);
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
 h1,
 p {
   margin-block: 0;
@@ -68,44 +59,11 @@ h1 {
   line-height: 1.02;
 }
 
-.status-chip {
-  position: absolute;
-  top: 44px;
-  right: 28px;
-  z-index: 2;
-  flex: 0 0 auto;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 9px 12px;
-  color: var(--muted);
-  background: #fff;
-  font-size: 13px;
-  font-weight: 850;
-}
-
-.status-chip[data-state="success"] {
-  border-color: rgba(8, 116, 67, 0.25);
-  color: var(--success);
-  background: var(--success-soft);
-}
-
-.status-chip[data-state="error"] {
-  border-color: rgba(180, 35, 24, 0.25);
-  color: var(--danger);
-  background: var(--danger-soft);
-}
-
-.status-chip[data-state="warning"] {
-  border-color: rgba(146, 84, 0, 0.25);
-  color: var(--warning);
-  background: var(--warning-soft);
-}
-
 .result {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 18px;
-  padding: 44px 28px 28px;
+  padding: 34px 28px 28px;
 }
 
 .status-mark {
@@ -240,48 +198,6 @@ h1 {
   overflow-wrap: anywhere;
 }
 
-.compare-note {
-  margin-top: 18px;
-  border-left: 4px solid var(--accent);
-  padding: 12px 14px;
-  color: var(--ink);
-  background: #fff8f3;
-  font-size: 14px;
-  font-weight: 750;
-  line-height: 1.45;
-  animation: detail-in 360ms 420ms ease-out both;
-}
-
-.technical-details {
-  border-top: 1px solid var(--line);
-  padding: 18px 28px 24px;
-}
-
-.technical-details summary {
-  cursor: pointer;
-  color: var(--blue);
-  font-size: 14px;
-  font-weight: 850;
-}
-
-.technical-details dl {
-  display: grid;
-  grid-template-columns: 140px 1fr;
-  gap: 10px 16px;
-  margin: 16px 0 0;
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.technical-details dt {
-  font-weight: 850;
-}
-
-.technical-details dd {
-  margin: 0;
-  overflow-wrap: anywhere;
-}
-
 .noscript {
   position: fixed;
   right: 16px;
@@ -339,28 +255,15 @@ h1 {
     align-self: center;
   }
 
-  .eyebrow {
-    margin-bottom: 5px;
-    font-size: 10px;
-    letter-spacing: 0.12em;
-  }
-
   h1 {
-    font-size: 31px;
+    font-size: 29px;
     line-height: 1.06;
-  }
-
-  .status-chip {
-    top: 54px;
-    right: 18px;
-    padding: 8px 10px;
-    font-size: 12px;
   }
 
   .result {
     grid-template-columns: 42px 1fr;
     gap: 13px;
-    padding: 54px 18px 22px;
+    padding: 24px 18px 22px;
   }
 
   .status-mark {
@@ -401,27 +304,4 @@ h1 {
     font-size: 17px;
   }
 
-  .compare-note {
-    font-size: 13px;
-  }
-
-  .technical-details {
-    padding-inline: 18px;
-  }
-
-  .technical-details dl {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 360px) {
-  .status-chip {
-    position: static;
-    display: inline-flex;
-    margin: 16px 0 0 18px;
-  }
-
-  .result {
-    grid-template-columns: 1fr;
-  }
 }

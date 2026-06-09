@@ -34,11 +34,8 @@ const tokenParam = new URLSearchParams(window.location.search).get('token')
 
 const elements = {
   result: document.getElementById('result'),
-  statusChip: document.getElementById('status-chip'),
   details: document.getElementById('details'),
   detailsGrid: document.getElementById('details-grid'),
-  technicalDetails: document.getElementById('technical-details'),
-  technicalList: document.getElementById('technical-list'),
 }
 
 class VerificationError extends Error {
@@ -266,11 +263,6 @@ function displayValue(field, value) {
   return String(value)
 }
 
-function setStatusChip(state, text) {
-  elements.statusChip.dataset.state = state
-  elements.statusChip.textContent = text
-}
-
 function setResult(state, kicker, title, message) {
   elements.result.dataset.state = state
   elements.result.innerHTML = `
@@ -345,21 +337,8 @@ function renderDetails(payload) {
   elements.details.hidden = false
 }
 
-function renderTechnicalDetails(token, parsed) {
-  elements.technicalList.innerHTML = [
-    ['Version', parsed.v],
-    ['Algorithm', parsed.alg],
-    ['Key ID', parsed.kid],
-    ['Token length', `${token.length} characters`],
-  ]
-    .map(([label, value]) => `<dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd>`)
-    .join('')
-  elements.technicalDetails.hidden = false
-}
-
 function renderError(error) {
   const state = error.state || 'error'
-  setStatusChip(state, state === 'warning' ? 'Setup needed' : 'Invalid')
   setResult(
     state,
     state === 'warning' ? 'Verification unavailable' : 'Verification failed',
@@ -367,21 +346,18 @@ function renderError(error) {
     error.message || 'The certificate token could not be verified.',
   )
   elements.details.hidden = true
-  elements.technicalDetails.hidden = true
 }
 
 async function main() {
   try {
     const parsed = await verifyCertificateToken(tokenParam)
-    setStatusChip('success', 'Verified')
     setResult(
       'success',
       'Authentication successful',
-      'Valid SVP certificate',
+      'Valid Certificate',
       'This QR token was signed by the configured SVP certificate key.',
     )
     renderDetails(parsed.payload)
-    renderTechnicalDetails(tokenParam, parsed)
   } catch (error) {
     renderError(error instanceof VerificationError ? error : new VerificationError('unexpected_error', 'An unexpected verification error occurred.'))
   }
