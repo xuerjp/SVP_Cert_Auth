@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SVP Certificate Verification</title>
+    <meta
+      name="description"
+      content="Verify signed Saint Vincent de Paul certificate QR tokens."
+    >
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="verification-panel" aria-labelledby="page-title">
+        <header class="panel-header">
+          <div class="brand-lockup">
+            <div class="brand-mark" aria-hidden="true">SVP</div>
+            <div>
+              <p class="eyebrow">Certificate verification</p>
+              <h1 id="page-title">Saint Vincent de Paul</h1>
+            </div>
+          </div>
+          <div id="status-chip" class="status-chip" data-state="idle">Ready</div>
+        </header>
+
+        <section id="result" class="result" aria-live="polite">
+          <div class="status-mark" aria-hidden="true"></div>
+          <div class="result-copy">
+            <p class="result-kicker">Waiting for QR data</p>
+            <h2>Scan a certificate QR code</h2>
+            <p>
+              The verified certificate details will appear here when a signed token is present in the URL.
+            </p>
+          </div>
+        </section>
+
+        <section id="details" class="details" hidden>
+          <div class="details-grid" id="details-grid"></div>
+          <p class="compare-note">
+            Compare these verified details with the printed certificate before accepting it.
+          </p>
+        </section>
+
+        <details id="technical-details" class="technical-details" hidden>
+          <summary>Technical details</summary>
+          <dl id="technical-list"></dl>
+        </details>
+      </section>
+    </main>
+
+    <noscript>
+      <div class="noscript">
+        JavaScript is required to verify certificate signatures.
+      </div>
+    </noscript>
+  </body>
+</html>
